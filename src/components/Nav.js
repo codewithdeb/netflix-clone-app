@@ -1,21 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Nav.css';
 
 function Nav() {
-    return (
-        <div className="nav">
-            <img 
-            className="nav__logo"
-            src="https://assets.brand.microsites.netflix.io/assets/493f5bba-81a4-11e9-bf79-066b49664af6_cm_1440w.png"
-            alt=""
-            />
-            <img 
-            className="nav__avatar "
-            src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
-            alt=""
-            />
 
-            <h1>Hi</h1>
+    const [show,handleShow] = useState(false);
+
+    const transitionNavBar = () => {
+        if(window.scrollY > 100){
+            handleShow(true)
+        } else {
+            handleShow(false)
+        }
+    }
+
+    useEffect( () => {
+        window.addEventListener("scroll",transitionNavBar);
+        return () => window.removeEventListener("scroll", transitionNavBar);
+    }, [] );
+
+    return (
+        <div className={`nav ${show && "nav__black"}`}>
+            <div className="nav__content">
+                <img 
+                className="nav__logo"
+                src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
+                alt="Netflix Logo"
+                />
+                <img 
+                className="nav__avatar "
+                src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
+                alt="Netflix Profile"
+                />
+            </div>
         </div>
     )
 }
